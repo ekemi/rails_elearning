@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :courses
   resources :students
   devise_for :users , controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   root 'students#index'#devise require a root route
