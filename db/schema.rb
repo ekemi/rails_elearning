@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_01_201926) do
+ActiveRecord::Schema.define(version: 2020_12_02_042624) do
+
+  create_table "courses", force: :cascade do |t|
+    t.string "course_name"
+    t.string "profesor_name"
+    t.string "length"
+    t.integer "number_videos"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.integer "ratings"
+    t.string "comments"
+    t.integer "course_id", null: false
+    t.integer "student_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["course_id"], name: "index_reviews_on_course_id"
+    t.index ["student_id"], name: "index_reviews_on_student_id"
+  end
 
   create_table "students", force: :cascade do |t|
     t.string "student_name"
@@ -37,5 +57,7 @@ ActiveRecord::Schema.define(version: 2020_12_01_201926) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "reviews", "courses"
+  add_foreign_key "reviews", "students"
   add_foreign_key "students", "users"
 end
